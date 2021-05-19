@@ -14,6 +14,6 @@ public class ExceptionHelper {
     @ExceptionHandler(value = {Exception.class})
     public ResponseEntity<Object> handleException(Exception ex) {
         logger.error("Exception: ", ex.getMessage());
-        return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<Object>(ex.getMessage()+" "+"!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
