@@ -1,10 +1,13 @@
 package com.real360.demo.features.companies;
 
+import com.real360.demo.features.projects.Project;
 import com.real360.demo.features.users.User;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -60,5 +63,7 @@ public class Company {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private User admin;
 
+    @OneToMany(mappedBy = "company")
+    Set<Project> projects = new HashSet<>();
 
 }
