@@ -19,13 +19,13 @@ public class Role {
     private UUID Id;
 
     @Basic
-    @Column(name = "name", nullable = true, length = 40)
+    @Column(name = "name", nullable = true, length = 40, unique = true)
     private String name;
 
     @Basic
     @Column(name = "created_at", nullable = true)
     @Temporal(TemporalType.DATE)
-    private Date createddAt;
+    private Date createdAt;
 
     @Basic
     @Column(name = "updated_at", nullable = true)
