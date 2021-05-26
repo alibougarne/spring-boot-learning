@@ -1,16 +1,17 @@
 package com.real360.demo.features.roles;
 
 import com.real360.demo.features.users.User;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "\"roles\"")
 public class Role {
     @Id
@@ -35,5 +36,16 @@ public class Role {
     // relations
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users = new HashSet<>();
+    private Set<User> users;
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = new Date();
+        updatedAt = createdAt;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = new Date();
+    }
 }

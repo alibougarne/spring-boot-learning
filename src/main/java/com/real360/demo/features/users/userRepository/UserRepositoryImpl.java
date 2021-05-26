@@ -9,8 +9,10 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
 
     @Override
-    public List<User> fetchAllUsers(Long take, Long skip) {
+    public List<User> fetchAllUsers(Long take, Long skip) throws Exception {
         List<User> users = new ArrayList<>();
+        if (!users.isEmpty())
+            throw new Exception("Unauthorized user");
         return users;
     }
 }
