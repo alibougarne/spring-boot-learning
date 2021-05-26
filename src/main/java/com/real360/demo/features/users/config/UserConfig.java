@@ -10,8 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Configuration
 public class UserConfig {
@@ -48,9 +49,9 @@ public class UserConfig {
                         user.setCreatedAt(new Date());
                         user.setUpdatedAt(user.getCreatedAt());
                         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-                        user.setEmail(faker.internet().emailAddress());
                         user.setFirstName(faker.name().firstName());
                         user.setLastName(faker.name().lastName());
+                        user.setEmail(faker.internet().safeEmailAddress(user.getFirstName().concat(".").concat(user.getLastName()).toLowerCase()));
                         user.setPassword(bCryptPasswordEncoder.encode("admin"));
                         user.setProfilePicture("");
                         user.setRoles(roles);
