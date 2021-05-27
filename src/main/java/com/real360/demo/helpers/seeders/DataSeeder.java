@@ -24,15 +24,14 @@ public class DataSeeder {
     CommandLineRunner commandLineRunner() {
         try {
             return args -> {
-
+                System.out.println("🚀 Seeding data Begin...");
                 UsersDataSeeds.seedData(userRepository, roleRepository);
                 CompaniesDataSeeds.seedData(companyRepository, userRepository);
                 System.out.println("🎯 Seeding data completed...");
             };
         } catch (Exception e) {
             System.out.println(e.getCause());
+            return null;
         }
-        return args -> {
-        };
     }
 }
