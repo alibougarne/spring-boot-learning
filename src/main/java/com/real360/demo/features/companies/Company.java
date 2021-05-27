@@ -63,8 +63,8 @@ public class Company {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User admin;
 
-    @OneToMany(mappedBy = "company")
-    Set<Project> projects = new HashSet<>();
+    @OneToMany(mappedBy = "company",fetch = FetchType.EAGER)
+    Set<Project> projects;
 
     @PrePersist
     public void prePersist() {

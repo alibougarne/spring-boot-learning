@@ -31,8 +31,7 @@ public class CompaniesDataSeeds {
                 company.setPhone(faker.phoneNumber().phoneNumber());
                 companies.add(company);
             }
+            companyRepository.saveAll(companies);
         }
-        companyRepository.saveAll(companies);
-
     }
 }
