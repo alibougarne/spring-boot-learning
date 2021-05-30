@@ -9,26 +9,28 @@ import com.real360.demo.features.users.userRepository.UserRepository;
 import com.sun.istack.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class UsersDataSeeds {
     public static void seedData(@NotNull UserRepository userRepository, @NotNull RoleRepository roleRepository) {
         System.out.println("🧩 Seeding Roles data...");
         // create and save a role
-        Role role = new Role();
-        role.setName("superAdmin");
+
         Set<Role> roles = new HashSet<>();
+        List<String> names = Arrays.asList("superAdmin","companyAdmin", "projectAdmin", "basicAdmin");
         if (roleRepository.count() == 0) {
-            role.setName("superUser");
-            role.setCreatedAt(new Date());
-            role.setUpdatedAt(role.getCreatedAt());
-            roleRepository.save(role);
+            for (int i = 0; i < names.size(); i++) {
+                Role role = new Role();
+                role.setName(names.get(i));
+                role.setCreatedAt(new Date());
+                role.setUpdatedAt(role.getCreatedAt());
+                roleRepository.save(role);
+                roles.add(role);
+            }
         } else {
-            role = roleRepository.findAll().get(0);
+            roles.addAll(roleRepository.findAll());
         }
-        roles.add(role);
         // create and save users
         System.out.println("🧩 Seeding Users data...");
         Set<User> users = new HashSet<>();
@@ -44,10 +46,34 @@ public class UsersDataSeeds {
                 user.setEmail(faker.internet().safeEmailAddress(user.getFirstName().concat(".").concat(user.getLastName()).toLowerCase()));
                 user.setPassword(bCryptPasswordEncoder.encode("admin"));
                 user.setProfilePicture("");
-                user.setRoles(roles);
+                user.setRoles(getRandomElement(roles,faker.number().numberBetween(1, roles.size()) ));
                 users.add(user);
             }
             userRepository.saveAll(users);
         }
+    }
+
+    static Set<Role>
+    getRandomElement(Set<Role> list, int totalItems)
+    {
+        Random rand = new Random();
+        List<Role> roles = new ArrayList<>();
+        roles.addAll(list);
+        // create a temporary list for storing
+        // selected element
+        Set<Role> newList = new HashSet<>();
+        for (int i = 0; i < totalItems; i++) {
+
+            // take a raundom index between 0 to size
+            // of given List
+            int randomIndex = rand.nextInt(list.size());
+
+            // add element in temporary list
+            newList.add(roles.get(i));
+
+            // Remove selected element from orginal list
+            list.remove(randomIndex);
+        }
+        return newList;
     }
 }

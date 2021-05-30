@@ -16,8 +16,8 @@ import java.util.List;
 @RequestMapping(value = "/api/users")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+//    @Autowired
+//    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -25,8 +25,8 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> getUsers(@RequestParam(required = false) Long skip, @RequestParam(required = false) Long take) throws Exception {
         System.out.println(skip + " ," + take);
-//        List<User> users = userService.fetchAllUsers(skip, take);
-        List<User> users = userService.getUsers();
+        List<User> users = userService.fetchAllUsers(skip, take);
+//        List<User> users = userService.getUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }
