@@ -1,5 +1,6 @@
 package com.real360.demo.features.companies;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.real360.demo.features.projects.Project;
 import com.real360.demo.features.users.User;
 import lombok.Data;
@@ -63,8 +64,12 @@ public class Company {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User admin;
 
-    @OneToMany(mappedBy = "company",fetch = FetchType.EAGER)
-    Set<Project> projects;
+    @OneToMany(
+            mappedBy = "company"
+            , fetch = FetchType.EAGER
+    )
+    @JsonIgnore
+    private Set<Project> projects = new HashSet<>();
 
     @PrePersist
     public void prePersist() {

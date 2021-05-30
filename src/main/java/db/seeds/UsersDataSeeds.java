@@ -6,6 +6,7 @@ import com.real360.demo.features.roles.Role;
 import com.real360.demo.features.roles.roleRepository.RoleRepository;
 import com.real360.demo.features.users.User;
 import com.real360.demo.features.users.userRepository.UserRepository;
+import com.sun.istack.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class UsersDataSeeds {
-    public static void seedData(UserRepository userRepository, RoleRepository roleRepository) {
+    public static void seedData(@NotNull UserRepository userRepository, @NotNull RoleRepository roleRepository) {
         System.out.println("🧩 Seeding Roles data...");
         // create and save a role
         Role role = new Role();
@@ -37,8 +38,6 @@ public class UsersDataSeeds {
             for (int i = 0; i <= 10; i++) {
                 User user = new User();
                 user.setActive(true);
-                // user.setCreatedAt(new Date());
-                // user.setUpdatedAt(user.getCreatedAt());
                 BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
                 user.setFirstName(faker.name().firstName());
                 user.setLastName(faker.name().lastName());

@@ -68,6 +68,7 @@ public class User {
     Set<Role> roles;
 
     @OneToMany(mappedBy = "admin")
+    @JsonIgnore
     Set<Company> companies;
 
     @PrePersist

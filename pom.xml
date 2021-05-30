@@ -92,6 +92,12 @@
             <artifactId>spring-security-core</artifactId>
             <version>5.4.6</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 	<build>

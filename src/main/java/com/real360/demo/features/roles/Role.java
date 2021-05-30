@@ -1,5 +1,6 @@
 package com.real360.demo.features.roles;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.real360.demo.features.users.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,7 @@ public class Role {
     // relations
 
     @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
     private Set<User> users;
 
     @PrePersist

@@ -6,12 +6,13 @@ import com.real360.demo.features.companies.Company;
 import com.real360.demo.features.companies.CompanyRepository;
 import com.real360.demo.features.users.User;
 import com.real360.demo.features.users.userRepository.UserRepository;
+import com.sun.istack.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class CompaniesDataSeeds {
-    public static void seedData(CompanyRepository companyRepository, UserRepository userRepository) {
+    public static void seedData(@NotNull CompanyRepository companyRepository, @NotNull UserRepository userRepository) {
        User admin = userRepository.findAll().get(0);
         System.out.println("🧩 Seeding Companies data...");
         Set<Company> companies = new HashSet<>();

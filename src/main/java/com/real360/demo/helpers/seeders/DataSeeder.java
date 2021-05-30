@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Configuration
 public class DataSeeder {
@@ -25,6 +27,7 @@ public class DataSeeder {
     ProjectRepository projectRepository;
 
     @Bean
+    @Transactional
     CommandLineRunner commandLineRunner() {
         try {
             return args -> {
