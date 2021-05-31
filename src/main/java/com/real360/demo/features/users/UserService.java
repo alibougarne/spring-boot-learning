@@ -1,16 +1,18 @@
 package com.real360.demo.features.users;
 
 import com.real360.demo.features.users.userRepository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class UserService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     /**
      * @author Ali BOUGARNE
