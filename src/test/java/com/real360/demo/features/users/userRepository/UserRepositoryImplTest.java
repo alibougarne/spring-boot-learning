@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 //@SpringBootTest
 @DataJpaTest
 class UserRepositoryImplTest {
@@ -46,8 +47,8 @@ class UserRepositoryImplTest {
 //        superAdmin = roleRepository.findAll().get(0);
         Set<Role> roles = new HashSet<>();
 //        if(superAdmin == null){
-            superAdmin.setName("superAdmin");
-            roleRepository.save(superAdmin);
+        superAdmin.setName("superAdmin");
+        roleRepository.save(superAdmin);
 //        }
 
         roles.add(superAdmin);
