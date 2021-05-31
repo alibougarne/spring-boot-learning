@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,14 +63,20 @@ class UserServiceTest {
     }
 
     @Test
+//    @Disabled
     void saveUser() throws Exception {
         // then
-        String[] roles = {"superAdmin", "projectAdmin", "companyAdmin", "basicAdmin"};
-        for(String roleName:roles){
+        String[] roleNames = {"superAdmin", "projectAdmin", "companyAdmin", "basicAdmin"};
+        Set<Role> roles = new HashSet<>();
+        for(String roleName:roleNames){
             Role role = new Role();
             role.setName(roleName);
-            roleRepository.save(role);
+            roles.add(role);
         }
+        roleRepository.saveAll(roles);
+        ArgumentCaptor<Set<Role>> setArgumentCaptor = ArgumentCaptor.forClass(Set.class);
+        verify(roleRepository).saveAll(setArgumentCaptor.capture());
+        System.out.println("++++++"+setArgumentCaptor.getAllValues().size());
         UserDTO userDTO = new UserDTO(
                 "Mourad",
                 "sekkal",
@@ -78,10 +84,11 @@ class UserServiceTest {
                 "admin",
                 "www.google.com/photo/123242.png",
                 true,
-                roles
+                roleNames
         );
         underTest.saveUser(userDTO);
         // verify
+
         ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
         verify(userRepository).save(userArgumentCaptor.capture());
         User capturedUser = userArgumentCaptor.getValue();
