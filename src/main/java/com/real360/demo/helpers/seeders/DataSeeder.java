@@ -14,18 +14,38 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.Transactional;
 
 
+/**
+ * The type Data seeder.
+ */
 @Configuration
 public class DataSeeder {
 
+    /**
+     * The User repository.
+     */
     @Autowired
     UserRepository userRepository;
+    /**
+     * The Role repository.
+     */
     @Autowired
     RoleRepository roleRepository;
+    /**
+     * The Company repository.
+     */
     @Autowired
     CompanyRepository companyRepository;
+    /**
+     * The Project repository.
+     */
     @Autowired
     ProjectRepository projectRepository;
 
+    /**
+     * Command line runner command line runner.
+     * used to seed some data on app start-up
+     * @return the command line runner
+     */
     @Bean
     @Transactional
     CommandLineRunner commandLineRunner() {

@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @ControllerAdvice
 public class ExceptionHelper {
     private static final Logger logger = LoggerFactory.getLogger(ExceptionHelper.class);
@@ -14,6 +17,8 @@ public class ExceptionHelper {
     @ExceptionHandler(value = {Exception.class})
     public ResponseEntity<Object> handleException(Exception ex) {
         logger.error("Exception: ", ex.getMessage());
-        return new ResponseEntity<Object>(ex.getMessage()+" "+"!", HttpStatus.INTERNAL_SERVER_ERROR);
+        Map<String, String> response = new HashMap();
+        response.put("en",  ex.getMessage());
+        return new ResponseEntity<Object>(response, HttpStatus.NOT_FOUND);
     }
 }

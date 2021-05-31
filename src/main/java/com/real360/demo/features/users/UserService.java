@@ -12,10 +12,19 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * @author Ali BOUGARNE
+     * @version 1.0
+     * @since 1.0.0
+     * @param skip the pagination skip parameter
+     * @param take the pagination take parameter
+     * @return a list of User
+     * @return the list
+     * @throws Exception users not found
+     */
     public List<User> fetchAllUsers(Long skip, Long take) throws Exception {
         List<User> users;
         users = userRepository.fetchAllUsers(skip, take);
-        System.out.println(users.size());
         return users;
     }
 
