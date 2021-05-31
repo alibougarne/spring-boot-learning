@@ -39,10 +39,11 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
             typedQuery.setMaxResults(take.intValue());
         }
         List<User> usersList = typedQuery.getResultList();
-
-
+        // the exception will be intercepted by the controller exception interceptor
         if (usersList.isEmpty())
             throw new Exception("Users not found");
+        // otherwise return users
+
         return usersList;
     }
 }
