@@ -4,6 +4,8 @@ import com.real360.demo.features.roles.Role;
 import com.real360.demo.features.roles.roleRepository.RoleRepository;
 import com.real360.demo.features.users.dtos.UserDTO;
 import com.real360.demo.features.users.userRepository.UserRepository;
+import org.assertj.core.api.BDDAssumptions;
+import org.assertj.core.api.OptionalAssert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -11,14 +13,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-//import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssumptions.given;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -74,9 +76,8 @@ class UserServiceTest {
             roles.add(role);
         }
         roleRepository.saveAll(roles);
-        ArgumentCaptor<Set<Role>> setArgumentCaptor = ArgumentCaptor.forClass(Set.class);
-        verify(roleRepository).saveAll(setArgumentCaptor.capture());
-        System.out.println("++++++"+setArgumentCaptor.getAllValues().size());
+
+        // given
         UserDTO userDTO = new UserDTO(
                 "Mourad",
                 "sekkal",
@@ -86,6 +87,7 @@ class UserServiceTest {
                 true,
                 roleNames
         );
+        OptionalAssert<Role> userRole = given(roleRepository.findRoleByName(anyString()));
         underTest.saveUser(userDTO);
         // verify
 

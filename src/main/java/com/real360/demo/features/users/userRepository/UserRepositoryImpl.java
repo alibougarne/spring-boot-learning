@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     EntityManager entityManager;
 
     @Override
-    public List<User> fetchAllUsers(Long skip, Long take) throws Exception {
+    public List<User> fetchAllUsers(Long skip, Long take) throws FileNotFoundException {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         // Making The Query Object From The 'CriteriaBuilder' Instance
         CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
@@ -41,7 +42,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         List<User> usersList = typedQuery.getResultList();
         // the exception will be intercepted by the controller exception interceptor
         if (usersList.isEmpty())
-            throw new Exception("Users not found");
+            throw new FileNotFoundException("Users not found");
         // otherwise return users
 
         return usersList;
